@@ -57,6 +57,7 @@ def corn_hbar(df, metric, fname, n=7):
     df = df.sort_values(metric, ascending=True).tail(n)
 
     fig, ax = fig_axes(width=3.5, height=3)
+    fig.subplots_adjust(left=0.3, bottom=0, right=0.9, top=1)
     ax.barh(df["Country"], df[metric])
 
     gap = df[metric].max() * 0.05
