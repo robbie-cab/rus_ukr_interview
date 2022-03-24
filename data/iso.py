@@ -6,4 +6,4 @@ from utils import CACHE
 def country_iso():
     url = "https://www.iban.com/country-codes"
     html = requests.get(url).content
-    return pd.read_html(html)
+    return pd.read_html(html)[0]

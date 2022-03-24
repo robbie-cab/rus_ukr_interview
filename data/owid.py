@@ -1,4 +1,6 @@
 import pandas as pd
+from data.iso import country_iso
+
 
 RESOURCE_DIR = "data/resources/"
 
@@ -32,4 +34,7 @@ def gas_imports():
                 df.loc[country, "russian_gas"] = cdf.loc[latest, perc_cols[i]]
                 df.loc[country, "year"] = latest
     df = df.sort_values("russian_gas")
+    iso = country_iso()
+
+    df = pd.merge(df, iso, left_index=True, right_on='Alpha-2 code', how='left')
     return df
