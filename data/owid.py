@@ -2,7 +2,7 @@ import pandas as pd
 
 from data.iso import country_iso
 
-RESOURCE_DIR = "data/resources/"
+from utils import RESOURCE_DIR
 
 def corn_imports():
     df = pd.read_csv(RESOURCE_DIR + "global-food.csv")
