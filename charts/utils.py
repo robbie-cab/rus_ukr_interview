@@ -17,4 +17,10 @@ def fig_axes(width=4, height=2.7, axes=[]):
 
     return fig, ax
 
+def format_time_axes(pax: matplotlib.axes.Axes) -> matplotlib.axes.Axes:
+    locator = matplotlib.dates.AutoDateLocator(minticks=4, maxticks=12)
+    formatter = matplotlib.dates.ConciseDateFormatter(locator)
+    pax.xaxis.set_major_locator(locator)
+    pax.xaxis.set_major_formatter(formatter)
+    return pax
 
