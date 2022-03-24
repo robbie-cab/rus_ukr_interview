@@ -16,6 +16,7 @@ def rub_exchange():
     return df[["datetime", "USD_RUB"]]
 
 
+@CACHE.memoize(name="oil_price", expire=CACHE_TIME_LIMIT)
 def oil_price():
     url = "https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/systemaveragepricesapofgas"
     site_html = requests.get(url)
