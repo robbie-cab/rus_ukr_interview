@@ -1,6 +1,8 @@
-import requests
 import pandas as pd
+import requests
+
 from utils import CACHE
+
 
 @CACHE.memoize(name="country_iso")
 def country_iso():

@@ -1,6 +1,6 @@
 import pandas as pd
-from data.iso import country_iso
 
+from data.iso import country_iso
 
 RESOURCE_DIR = "data/resources/"
 
@@ -36,5 +36,5 @@ def gas_imports():
     df = df.sort_values("russian_gas")
     iso = country_iso()
 
-    df = pd.merge(df, iso, left_index=True, right_on='Alpha-2 code', how='left')
+    df = pd.merge(df, iso, left_index=True, right_on="Alpha-2 code", how="left")
     return df
