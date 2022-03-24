@@ -15,7 +15,7 @@ def corn_exports():
 
 # https://aegis.acer.europa.eu/chest/dataitems/214/view
 def gas_imports():
-    df = pd.Series()
+    df = pd.DataFrame()
     data = pd.read_excel(
         RESOURCE_DIR + "Estimated number and diversity of supply sources  2020.xlsx",
         header=10,
@@ -28,7 +28,7 @@ def gas_imports():
         cdf = cdf.set_index("Year")
         for i, col in enumerate(source_cols):
             if cdf.loc[latest, col] == "RU":
-                df[country] = cdf.loc[latest, perc_cols[i]]
-    df = df.sort_values()
-    print(df)
+                df.loc[country, 'russian_gas'] = cdf.loc[latest, perc_cols[i]]
+                df.loc[country, 'year'] = latest
+    df = df.sort_values('russian_gas')
     return df
