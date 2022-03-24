@@ -1,10 +1,10 @@
 import pandas as pd
 import requests
 
-from utils import CACHE
+from utils import CACHE, CACHE_TIME_LIMIT
 
 
-@CACHE.memoize(name="rub_exchange")
+@CACHE.memoize(name="rub_exchange", expire=CACHE_TIME_LIMIT)
 def rub_exchange():
     url = "https://www.exchangerates.org.uk/USD-RUB-exchange-rate-history.html"
     r = requests.get(url).content
