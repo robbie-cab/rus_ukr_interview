@@ -9,8 +9,12 @@ def get_corn_data():
     corn = corn_exports()
     iso = tidy_country_iso()
 
-    no_iso = set(corn['Country']) - set(iso['Country']) 
+    no_iso = set(corn['Country']) - set(iso['Country'])
     print(no_iso)
 
+    df = pd.merge(corn, iso, how='outer').dropna(subset=['Exports (t)'])
 
-    df = pd.merge(corn, iso)
+    world = df.set_index('Country').loc['World', 'Exports (t)']
+    print(world)
+    df['proportion'] = df['Exports (t)'] / world
+    print(df.sort_values('proportion').tail(20))
