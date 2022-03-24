@@ -23,7 +23,7 @@ def get_corn_data():
     return df
 
 
-def corn_map(df, metric):
+def corn_map(df, metric, fname):
     gdf = gpd.read_file(RESOURCE_DIR + 'worldmap.json')
 
     gdf = pd.merge(gdf, df, left_on='iso_a3', right_on='iso3', how='inner')
@@ -40,10 +40,12 @@ def corn_map(df, metric):
     )
     ax.axis('off')
 
-    #lat = 48
-    #lon = 31
-    #ax.set_xlim(lon-15, lon+15)
-    #ax.set_ylim(lat-10, lat+10)
+    lat = 48
+    lon = 31
+    lat_window = 30
+    lon_window = 50
+    ax.set_xlim(lon-lon_window, lon+lon_window)
+    ax.set_ylim(lat-lat_window, lat+lat_window)
 
-    fig.savefig(FIG_DIR+'corn_map.pdf')
+    fig.savefig(FIG_DIR+fname)
 
