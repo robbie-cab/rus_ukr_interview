@@ -3,3 +3,4 @@ openpyxl
 lxml
 requests
 diskcache
+bs4
