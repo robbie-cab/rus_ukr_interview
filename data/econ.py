@@ -35,4 +35,6 @@ def oil_price():
     df = pd.read_excel(excel_data.content, sheet_name="System Average Price", header=1)
     df = df[df.columns[0:2]]
     df.columns = ["Date", "Value (p/kWh)"]
+    df['Date'] = pd.to_datetime(df["Date"], errors='coerce')
+    df = df.dropna()
     return df
