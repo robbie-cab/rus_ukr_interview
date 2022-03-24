@@ -3,18 +3,17 @@ from data.owid import corn_exports
 
 import pandas as pd
 
-
-
 def get_corn_data():
-    corn = corn_exports()
+    exports = corn_exports()
+    imports = corn_imports()
     iso = tidy_country_iso()
 
-    no_iso = set(corn['Country']) - set(iso['Country'])
+    no_iso = set(exports['Country']) - set(iso['Country'])
     print(no_iso)
 
-    df = pd.merge(corn, iso, how='outer').dropna(subset=['Exports (t)'])
+    df = pd.merge(exports, imports, how='outer')
+    df = pd.merge(df, iso, how='outer')
 
     world = df.set_index('Country').loc['World', 'Exports (t)']
-    print(world)
-    df['proportion'] = df['Exports (t)'] / world
-    print(df.sort_values('proportion').tail(20))
+    df['export %'] = df['Exports (t)'] / world
+    return df
