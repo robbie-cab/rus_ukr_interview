@@ -1,12 +1,12 @@
 import pandas as pd
 
 from data.iso import country_iso
-
 from utils import RESOURCE_DIR
+
 
 def corn_imports():
     df = pd.read_csv(RESOURCE_DIR + "global-food.csv")
-    metrics = ['Imports per capita (kg)', 'Imports (t)']
+    metrics = ["Imports per capita (kg)", "Imports (t)"]
     corn = df["Product"] == "Maize"
     df = df.loc[corn].dropna(subset=metrics)
     latest = df["Year"] == df["Year"].max()
