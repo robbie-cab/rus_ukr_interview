@@ -12,8 +12,8 @@ def fig_axes(width=4, height=2.7, axes=[]):
         ax.spines[spine].set_linewidth(1)
     for spine in spines - show:
         ax.spines[spine].set_visible(False)
-
-    ax.tick_params(axis="both", which="both", color="lightgray")
+    
+    ax.tick_params(axis="both", which="both", left='off', color='white')
     ax.grid(which="both", axis="both", visible=False)
 
     return fig, ax

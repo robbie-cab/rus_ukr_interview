@@ -1,5 +1,6 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import matplotlib
 import pandas as pd
 
 from charts.utils import fig_axes
@@ -32,7 +33,7 @@ def corn_map(df, metric, fname):
     fig, ax = plt.subplots(figsize=(12, 8))
     gdf.plot(
         column=metric,
-        cmap="Reds",
+        cmap="magma",
         linewidth=1,
         ax=ax,
         edgecolor="0.9",
@@ -57,7 +58,15 @@ def corn_hbar(df, metric, fname, n=7):
 
     fig, ax = fig_axes(width=3.5, height=3)
     fig.subplots_adjust(left=0.3, bottom=0, right=0.9, top=1)
-    ax.barh(df["Country"], df[metric])
+
+    cmap = matplotlib.cm.get_cmap("magma_r")
+    #df['color'] = [cmap(0.3)]
+    #df.loc[df['Country'].isin(['Russia', 'Ukraine']), 'color'] = (cmap(0.75))
+    for i in df.index:
+        color = cmap(0.3)
+        if df.loc[i, "Country"] in ['Russia', 'Ukraine']:
+            color = cmap(0.75)
+        ax.barh(df.loc[i, "Country"], df.loc[i, metric], color=color)
 
     gap = df[metric].max() * 0.05
     for i in df.index:
