@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from shapely.geometry import Point
 
-from data.econ import gas_price
+from data.econ import gas_price, gas_imports
 from utils import FIG_DIR, RESOURCE_DIR
 
 RUSSIA = [40, 60]
@@ -29,18 +29,18 @@ def draw_gas_line(row):
     xs = [RUSSIA[0], center.x]
     y1s = [RUSSIA[1], center.y - 0.01 * gas]
     y2s = [RUSSIA[1], center.y + 0.01 * gas]
-    plt.fill_between(xs, y1s, y2s, color=cmap(gas / 100), alpha=0.6, lw=0)
+    plt.fill_between(xs, y1s, y2s, color=cmap(gas / 100), alpha=0.4, lw=0)
 
     plt.text(xs[1], center.y, f"{country}", ha="right", va="bottom", fontweight="bold")
     plt.text(xs[1], center.y, f"{gas:.0f}%", ha="right", va="top")
 
 
-def gas_map(df, metric, fname):
+def gas_map(df, metric, fname, countries=None):
     gdf = gpd.read_file(RESOURCE_DIR + "worldmap.json")
 
     gdf = pd.merge(gdf, df, left_on="iso_a3", right_on="iso3", how="outer")
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(10, 6))
     gdf.plot(
         linewidth=1,
         ax=ax,
@@ -61,15 +61,10 @@ def gas_map(df, metric, fname):
     """
     gdf = gdf.dropna(subset=[metric, "geometry"])
     for i, row in gdf.iterrows():
-        draw_gas_line(row)
+        if (not countries) or (row['Country'] in countries):
+            draw_gas_line(row)
     plt.plot(RUSSIA[0], RUSSIA[1], marker="o", ms=100, c=cmap(0.75))
     plt.text(RUSSIA[0], RUSSIA[1], f"Russian\ngas", ha="center", va="center", color="white")
-
-    ax.axis("off")
-
-    # gdf.plot(ax=ax, column='center')
-
-    # plt.gcf().set_size_inches(20, 10)
 
     lat = 50
     lon = 18
@@ -78,4 +73,18 @@ def gas_map(df, metric, fname):
     ax.set_xlim(lon - lon_window, lon + lon_window)
     ax.set_ylim(lat - lat_window, lat + lat_window)
 
+    ax.axis("off")
+    fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
+
     plt.savefig(FIG_DIR + fname)
+
+def gas_map_series():
+    df = gas_imports()
+
+    first = set(['Finland', 'Estonia', 'Latvia', 'Bulgaria', 'Austria'])
+    second = first | set(['Germany', 'France'])
+
+    gas_map(df, "russian_gas", "gas_map1.pdf", countries=first)
+    gas_map(df, "russian_gas", "gas_map2.pdf", countries=second)
+    gas_map(df, "russian_gas", "gas_map3.pdf")
+

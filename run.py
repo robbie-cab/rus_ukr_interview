@@ -1,5 +1,5 @@
 from charts.corn import corn_hbar, corn_map, get_corn_data
-from charts.gas import gas_map
+from charts.gas import gas_map, gas_map_series
 from charts.rub import rub_chart
 from data.econ import gas_imports
 
@@ -21,5 +21,5 @@ def get_gas_charts():
 
 if __name__ == "__main__":
     # get_corn_charts()
-    get_gas_charts()
+    gas_map_series()
     # rub_chart("ruble.pdf")
