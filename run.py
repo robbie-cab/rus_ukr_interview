@@ -11,11 +11,12 @@ def get_corn_charts():
     corn_hbar(df, "export %", "corn_exports_hbar.pdf")
     corn_hbar(df, "Imports per capita (kg)", "corn_imports_hbar.pdf")
 
+
 def get_gas_charts():
     gas_data()
 
 
 if __name__ == "__main__":
-    #get_corn_charts()
-    #get_gas_charts()
-    rub_chart('ruble.pdf')
+    get_corn_charts()
+    get_gas_charts()
+    rub_chart("ruble.pdf")

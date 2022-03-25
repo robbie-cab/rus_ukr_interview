@@ -1,12 +1,12 @@
 import geopandas as gpd
-import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from charts.utils import fig_axes
 from data.iso import tidy_country_iso
 from data.owid import corn_exports, corn_imports
 from utils import FIG_DIR, RESOURCE_DIR
-from charts.utils import fig_axes
+
 
 def get_corn_data():
     exports = corn_exports()
@@ -49,7 +49,6 @@ def corn_map(df, metric, fname):
     ax.set_ylim(lat - lat_window, lat + lat_window)
 
     fig.savefig(FIG_DIR + fname)
-
 
 
 def corn_hbar(df, metric, fname, n=7):

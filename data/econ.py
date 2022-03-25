@@ -18,7 +18,7 @@ def rub_exchange():
 
 @CACHE.memoize(name="gas_price", expire=CACHE_TIME_LIMIT)
 def gas_price():
-    url = "https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/systemaveragepricesapofgas"
+    url = "https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/systemaveragepricesapofgas"  # noqa
     site_html = requests.get(url)
     soup = BeautifulSoup(site_html.text, "html.parser")
     # first xlsx link is the most up to date

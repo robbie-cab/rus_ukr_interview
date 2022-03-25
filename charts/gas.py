@@ -1,9 +1,15 @@
-import geopandas
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import pandas as pd
+
 from data.econ import gas_price
+from utils import FIG_DIR, RESOURCE_DIR
+
 
 def gas_data():
     df = gas_price()
     print(df)
+
 
 def gas_map(df, metric, fname):
     gdf = gpd.read_file(RESOURCE_DIR + "worldmap.json")
@@ -30,6 +36,3 @@ def gas_map(df, metric, fname):
     ax.set_ylim(lat - lat_window, lat + lat_window)
 
     fig.savefig(FIG_DIR + fname)
-
-
-
