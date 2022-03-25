@@ -1,6 +1,5 @@
 import pandas as pd
 
-from data.iso import country_iso
 from utils import RESOURCE_DIR
 
 
@@ -23,6 +22,3 @@ def corn_exports():
     latest = df["Year"] == df["Year"].max()
     df = df.loc[latest, ["Country", "Exports (t)"]]
     return df.sort_values("Exports (t)")
-
-
-

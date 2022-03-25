@@ -41,6 +41,7 @@ def gas_price():
     df = df.dropna()
     return df
 
+
 def gas_imports():
     # https://aegis.acer.europa.eu/chest/dataitems/214/view
     df = pd.DataFrame()
