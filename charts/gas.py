@@ -2,13 +2,8 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from data.econ import gas_price
+from data.econ import gas_price, gas_imports
 from utils import FIG_DIR, RESOURCE_DIR
-
-
-def gas_data():
-    df = gas_price()
-    print(df)
 
 
 def gas_map(df, metric, fname):

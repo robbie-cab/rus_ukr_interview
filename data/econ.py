@@ -2,7 +2,8 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from utils import CACHE, CACHE_TIME_LIMIT
+from data.iso import tidy_country_iso
+from utils import CACHE, CACHE_TIME_LIMIT, RESOURCE_DIR
 
 
 @CACHE.memoize(name="rub_exchange", expire=CACHE_TIME_LIMIT)
@@ -38,4 +39,27 @@ def gas_price():
     df.columns = ["Date", "Value (p/kWh)"]
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
     df = df.dropna()
+    return df
+
+def gas_imports():
+    # https://aegis.acer.europa.eu/chest/dataitems/214/view
+    df = pd.DataFrame()
+    data = pd.read_excel(
+        RESOURCE_DIR + "Estimated number and diversity of supply sources  2020.xlsx",
+        header=10,
+    )
+    source_cols = [col for col in data.columns if "Origin" in col]
+    perc_cols = [col for col in data.columns if "%" in col]
+    for country in data["MS"].unique():
+        cdf = data[data["MS"] == country]
+        latest = cdf["Year"].max()
+        cdf = cdf.set_index("Year")
+        for i, col in enumerate(source_cols):
+            if cdf.loc[latest, col] == "RU":
+                df.loc[country, "russian_gas"] = cdf.loc[latest, perc_cols[i]]
+                df.loc[country, "year"] = latest
+    df = df.sort_values("russian_gas")
+    iso = tidy_country_iso()
+
+    df = pd.merge(df, iso, left_index=True, right_on="iso2", how="left")
     return df

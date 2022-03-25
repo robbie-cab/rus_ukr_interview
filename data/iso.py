@@ -23,5 +23,8 @@ def tidy_country_iso():
         "United Kingdom of Great Britain and Northern Ireland (the)": "United Kingdom",
         "United States of America (the)": "United States",
     }
-    df = df.rename(columns={"Alpha-3 code": "iso3"})
-    return df.replace(to_owid)[["Country", "iso3"]]
+    df = df.rename(columns={
+        "Alpha-3 code": "iso3",
+        "Alpha-2 code": "iso2",
+    })
+    return df.replace(to_owid)[["Country", "iso2", "iso3"]]

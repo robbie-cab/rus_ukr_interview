@@ -25,25 +25,4 @@ def corn_exports():
     return df.sort_values("Exports (t)")
 
 
-def gas_imports():
-    # https://aegis.acer.europa.eu/chest/dataitems/214/view
-    df = pd.DataFrame()
-    data = pd.read_excel(
-        RESOURCE_DIR + "Estimated number and diversity of supply sources  2020.xlsx",
-        header=10,
-    )
-    source_cols = [col for col in data.columns if "Origin" in col]
-    perc_cols = [col for col in data.columns if "%" in col]
-    for country in data["MS"].unique():
-        cdf = data[data["MS"] == country]
-        latest = cdf["Year"].max()
-        cdf = cdf.set_index("Year")
-        for i, col in enumerate(source_cols):
-            if cdf.loc[latest, col] == "RU":
-                df.loc[country, "russian_gas"] = cdf.loc[latest, perc_cols[i]]
-                df.loc[country, "year"] = latest
-    df = df.sort_values("russian_gas")
-    iso = country_iso()
 
-    df = pd.merge(df, iso, left_index=True, right_on="Alpha-2 code", how="left")
-    return df
