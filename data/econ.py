@@ -54,6 +54,8 @@ def gas_imports():
         cdf = data[data["MS"] == country]
         latest = cdf["Year"].max()
         cdf = cdf.set_index("Year")
+        df.loc[country, "russian_gas"] = 0
+        df.loc[country, "year"] = latest
         for i, col in enumerate(source_cols):
             if cdf.loc[latest, col] == "RU":
                 df.loc[country, "russian_gas"] = cdf.loc[latest, perc_cols[i]]
