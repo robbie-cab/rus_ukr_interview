@@ -61,7 +61,7 @@ def gas_map(df, metric, fname, countries=None):
     """
     gdf = gdf.dropna(subset=[metric, "geometry"])
     for i, row in gdf.iterrows():
-        if (not countries) or (row['Country'] in countries):
+        if (countries is None) or (row['Country'] in countries):
             draw_gas_line(row)
     plt.plot(RUSSIA[0], RUSSIA[1], marker="o", ms=100, c=cmap(0.75))
     plt.text(RUSSIA[0], RUSSIA[1], f"Russian\ngas", ha="center", va="center", color="white")
@@ -84,6 +84,7 @@ def gas_map_series():
     first = set(['Finland', 'Estonia', 'Latvia', 'Bulgaria', 'Austria'])
     second = first | set(['Germany', 'France'])
 
+    gas_map(df, "russian_gas", "gas_map0.pdf", countries=set())
     gas_map(df, "russian_gas", "gas_map1.pdf", countries=first)
     gas_map(df, "russian_gas", "gas_map2.pdf", countries=second)
     gas_map(df, "russian_gas", "gas_map3.pdf")

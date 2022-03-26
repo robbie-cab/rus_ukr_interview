@@ -21,5 +21,5 @@ def get_gas_charts():
 
 if __name__ == "__main__":
     get_corn_charts()
-    #gas_map_series()
-    # rub_chart("ruble.pdf")
+    gas_map_series()
+    rub_chart("ruble.pdf")
