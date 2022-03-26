@@ -71,7 +71,7 @@ def gas_map(df, metric, fname, countries=None):
     lat_window = 15
     lon_window = 30
     ax.set_xlim(lon - lon_window, lon + lon_window)
-    ax.set_ylim(lat - lat_window, lat + lat_window)
+    ax.set_ylim(lat - lat_window, lat + lat_window+7)
 
     ax.axis("off")
     fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
