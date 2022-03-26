@@ -4,3 +4,5 @@ lxml
 requests
 diskcache
 bs4
+geopandas
+matplotlib
