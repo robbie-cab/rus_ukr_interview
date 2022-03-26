@@ -101,10 +101,6 @@ def rub_chart(fname):
             "date": "2022-02-27",
             "y": 0.17,
         },
-        # "Russian ships banned\nfrom ports": {
-        #     'date': "2022-03-01",
-        #     'y': 0.2,
-        # },
         "Germany push back on\noil sanctions": {
             "date": "2022-03-07",
             "y": 0.5,

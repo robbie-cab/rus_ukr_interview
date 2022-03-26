@@ -1,6 +1,6 @@
 import geopandas as gpd
-import matplotlib.pyplot as plt
 import matplotlib
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from charts.utils import fig_axes
@@ -42,10 +42,10 @@ def corn_map(df, metric, fname):
 
     gdf = gdf.dropna(subset=[metric])
     gdf[metric] /= 1e6
-    if 'Exports' in metric:
-        vmax=gdf.loc[gdf['Country']=='United States', metric]
+    if "Exports" in metric:
+        vmax = gdf.loc[gdf["Country"] == "United States", metric]
     else:
-        vmax=gdf.loc[gdf['Country']=='Netherlands', metric]
+        vmax = gdf.loc[gdf["Country"] == "Netherlands", metric]
 
     gdf.plot(
         column=metric,
@@ -55,9 +55,6 @@ def corn_map(df, metric, fname):
         edgecolor="0.9",
         aspect="equal",
         vmax=vmax,
-        #legend=True,
-        #legend_kwds={'label': 'Exports (million tonnes)',
-        #    'orientation': "horizontal", 'shrink': 0.4},
     )
     ax.axis("off")
 
@@ -82,7 +79,7 @@ def corn_hbar(df, metric, fname, n=7):
     cmap = matplotlib.cm.get_cmap("magma_r")
     for i in df.index:
         color = cmap(0.3)
-        if df.loc[i, "Country"] in ['Russia', 'Ukraine']:
+        if df.loc[i, "Country"] in ["Russia", "Ukraine"]:
             color = cmap(0.75)
         ax.barh(df.loc[i, "Country"], df.loc[i, metric], color=color)
 

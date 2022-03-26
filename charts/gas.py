@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from shapely.geometry import Point
 
-from data.econ import gas_price, gas_imports
+from data.econ import gas_imports
 from utils import FIG_DIR, RESOURCE_DIR
 
 RUSSIA = [40, 60]
@@ -48,44 +48,34 @@ def gas_map(df, metric, fname, countries=None):
         aspect="equal",
         color="lightgrey",
     )
-    """
-    gdf.plot(
-        column=metric,
-        cmap="magma_r",
-        linewidth=1,
-        ax=ax,
-        edgecolor="0.9",
-        # legend = False,
-        aspect="equal",
-    )
-    """
+
     gdf = gdf.dropna(subset=[metric, "geometry"])
     for i, row in gdf.iterrows():
-        if (countries is None) or (row['Country'] in countries):
+        if (countries is None) or (row["Country"] in countries):
             draw_gas_line(row)
     plt.plot(RUSSIA[0], RUSSIA[1], marker="o", ms=100, c=cmap(0.75))
-    plt.text(RUSSIA[0], RUSSIA[1], f"Russian\ngas", ha="center", va="center", color="white")
+    plt.text(RUSSIA[0], RUSSIA[1], "Russian\ngas", ha="center", va="center", color="white")
 
     lat = 50
     lon = 18
     lat_window = 15
     lon_window = 30
     ax.set_xlim(lon - lon_window, lon + lon_window)
-    ax.set_ylim(lat - lat_window, lat + lat_window+7)
+    ax.set_ylim(lat - lat_window, lat + lat_window + 7)
 
     ax.axis("off")
     fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
 
     plt.savefig(FIG_DIR + fname)
 
+
 def gas_map_series():
     df = gas_imports()
 
-    first = set(['Finland', 'Estonia', 'Latvia', 'Bulgaria', 'Austria'])
-    second = first | set(['Germany', 'France'])
+    first = set(["Finland", "Estonia", "Latvia", "Bulgaria", "Austria"])
+    second = first | set(["Germany", "France"])
 
     gas_map(df, "russian_gas", "gas_map0.pdf", countries=set())
     gas_map(df, "russian_gas", "gas_map1.pdf", countries=first)
     gas_map(df, "russian_gas", "gas_map2.pdf", countries=second)
     gas_map(df, "russian_gas", "gas_map3.pdf")
-
