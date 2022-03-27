@@ -1,5 +1,5 @@
 from charts.corn import corn_hbar, corn_map, get_corn_data
-from charts.gas import gas_map, gas_map_series
+from charts.gas import gas_map
 from charts.rub import rub_chart
 from data.econ import gas_imports
 
@@ -13,10 +13,16 @@ def get_corn_charts():
     corn_hbar(df, "Imports per capita (kg)", "corn_imports_hbar.pdf")
 
 
-def get_gas_charts():
+def gas_map_series():
     df = gas_imports()
-    print(df)
-    gas_map(df, "russian_gas", "gas_map.pdf")
+
+    first = set(["Finland", "Estonia", "Latvia", "Bulgaria", "Austria"])
+    second = first | set(["Germany", "France"])
+
+    gas_map(df, "russian_gas", "gas_map0.pdf", countries=set())
+    gas_map(df, "russian_gas", "gas_map1.pdf", countries=first)
+    gas_map(df, "russian_gas", "gas_map2.pdf", countries=second)
+    gas_map(df, "russian_gas", "gas_map3.pdf")
 
 
 if __name__ == "__main__":

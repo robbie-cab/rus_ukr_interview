@@ -67,15 +67,3 @@ def gas_map(df, metric, fname, countries=None):
     fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
 
     plt.savefig(FIG_DIR + fname)
-
-
-def gas_map_series():
-    df = gas_imports()
-
-    first = set(["Finland", "Estonia", "Latvia", "Bulgaria", "Austria"])
-    second = first | set(["Germany", "France"])
-
-    gas_map(df, "russian_gas", "gas_map0.pdf", countries=set())
-    gas_map(df, "russian_gas", "gas_map1.pdf", countries=first)
-    gas_map(df, "russian_gas", "gas_map2.pdf", countries=second)
-    gas_map(df, "russian_gas", "gas_map3.pdf")
