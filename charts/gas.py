@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from shapely.geometry import Point
 
-from data.econ import gas_imports
 from utils import FIG_DIR, RESOURCE_DIR
 
 RUSSIA = [40, 60]
