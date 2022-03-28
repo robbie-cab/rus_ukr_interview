@@ -74,7 +74,7 @@ def corn_hbar(df, metric, fname, n=7):
     df = df.sort_values(metric, ascending=True).tail(n)
 
     fig, ax = fig_axes(width=3.5, height=3)
-    fig.subplots_adjust(left=0.3, bottom=0, right=0.9, top=1)
+    fig.subplots_adjust(left=0.3, bottom=0, right=0.85, top=1)
 
     cmap = matplotlib.cm.get_cmap("magma_r")
     for i in df.index:
