@@ -83,9 +83,13 @@ def corn_hbar(df, metric, fname, n=7):
             color = cmap(0.75)
         ax.barh(df.loc[i, "Country"], df.loc[i, metric], color=color)
 
+    if "Exports" in metric:
+        suffix = "%"
+    else:
+        suffix = " kg"
     gap = df[metric].max() * 0.05
     for i in df.index:
         value = df.loc[i, metric]
-        ax.text(value + gap, df.loc[i, "Country"], f"{value:.0f}%", ha="left", va="center")
+        ax.text(value + gap, df.loc[i, "Country"], f"{value:.0f}{suffix}", ha="left", va="center")
 
     fig.savefig(FIG_DIR + fname)
